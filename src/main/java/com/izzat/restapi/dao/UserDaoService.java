@@ -25,7 +25,7 @@ public class UserDaoService {
     }
 
     public User findById(Long id) {
-        Predicate<? super User> search = user -> user.getUserId().equals(id);
+        Predicate<? super User> search = getUserById(id);
         return users.stream().filter(search).findFirst().orElse(null);
     }
 
@@ -35,5 +35,13 @@ public class UserDaoService {
             users.add(user);
             return user;
         } else return null;
+    }
+
+    public void deleteUser(Long id) {
+        users.removeIf(getUserById(id));
+    }
+
+    private Predicate<? super User> getUserById(Long id) {
+        return user -> user.getUserId().equals(id);
     }
 }

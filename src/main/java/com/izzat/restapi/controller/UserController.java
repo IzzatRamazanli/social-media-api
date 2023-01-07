@@ -42,4 +42,10 @@ public class UserController {
         } else throw new RuntimeException(UserExceptionEnum.USER_CREDENTIALS_INCORRECT.getMessage());
 
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> deleteUserById(@PathVariable Long id) {
+        userDaoService.deleteUser(id);
+        return ResponseEntity.ok().build();
+    }
 }
