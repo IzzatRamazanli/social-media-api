@@ -12,6 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @ControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -50,7 +51,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
         ExceptionDetails exceptionDetails = new ExceptionDetails(
                 LocalDateTime.now(),
-                ex.getMessage(),
+                Objects.requireNonNull(ex.getFieldError()).getDefaultMessage(),
                 request.getDescription(false)
         );
 

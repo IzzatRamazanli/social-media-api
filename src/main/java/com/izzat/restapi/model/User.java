@@ -17,10 +17,10 @@ public class User {
 
     private Long userId;
 
-    @Size(min = 3)
+    @Size(min = 3, message = "User name must consist of at least 3 characters")
     private String name;
 
-    @Past
+    @Past(message = "Birthdate should be in past")
     private LocalDate birthDate;
 
 }
