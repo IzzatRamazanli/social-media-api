@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum UserExceptionEnum {
 
     USER_NOT_FOUND("User not found"),
-    USER_CREDENTIALS_INCORRECT("User credentials are incomplete");
+    USER_VALIDATION_ISSUE("User details are not valid");
 
     private final String message;
 }

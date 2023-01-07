@@ -4,6 +4,7 @@ import com.izzat.restapi.dao.UserDaoService;
 import com.izzat.restapi.enums.UserExceptionEnum;
 import com.izzat.restapi.exception.UserNotFoundException;
 import com.izzat.restapi.model.User;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,16 +32,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
-        if (user.getName() != null) {
-            User saved = userDaoService.saveUser(user);
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(saved.getUserId())
-                    .toUri();
-            return ResponseEntity.created(location).build();
-        } else throw new RuntimeException(UserExceptionEnum.USER_CREDENTIALS_INCORRECT.getMessage());
-
+    public ResponseEntity<User> saveUser(@Valid @RequestBody User user) {
+        User saved = userDaoService.saveUser(user);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(saved.getUserId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/{id}")

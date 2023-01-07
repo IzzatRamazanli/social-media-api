@@ -30,7 +30,7 @@ public class UserDaoService {
     }
 
     public User saveUser(User user) {
-        if (user.getName() != null) {
+        if (user != null) {
             user.setUserId(id.getAndIncrement());
             users.add(user);
             return user;
