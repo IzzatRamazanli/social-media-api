@@ -32,11 +32,14 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> saveUser(@RequestBody User user) {
-        User saved = userDaoService.saveUser(user);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(saved.getUserId())
-                .toUri();
-        return ResponseEntity.created(location).build();
+        if (user.getName() != null) {
+            User saved = userDaoService.saveUser(user);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(saved.getUserId())
+                    .toUri();
+            return ResponseEntity.created(location).build();
+        } else throw new RuntimeException(UserExceptionEnum.USER_CREDENTIALS_INCORRECT.getMessage());
+
     }
 }

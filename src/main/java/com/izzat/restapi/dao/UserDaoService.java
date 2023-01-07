@@ -1,7 +1,5 @@
 package com.izzat.restapi.dao;
 
-import com.izzat.restapi.enums.UserExceptionEnum;
-import com.izzat.restapi.exception.UserCredentialsException;
 import com.izzat.restapi.model.User;
 import org.springframework.stereotype.Component;
 
@@ -32,10 +30,10 @@ public class UserDaoService {
     }
 
     public User saveUser(User user) {
-        if (user != null) {
+        if (user.getName() != null) {
             user.setUserId(id.getAndIncrement());
             users.add(user);
             return user;
-        } else throw new UserCredentialsException(UserExceptionEnum.USER_CREDENTIALS_INCORRECT);
+        } else return null;
     }
 }
