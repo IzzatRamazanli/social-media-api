@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Objects;
 
 @ControllerAdvice
@@ -22,9 +22,10 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     public final ResponseEntity<ExceptionDetails> handleAllExceptions(Exception ex, WebRequest request) {
 
         ExceptionDetails exceptionDetails = new ExceptionDetails(
-                LocalDateTime.now(),
+                Instant.now(),
                 ex.getMessage(),
-                request.getDescription(false)
+                request.getDescription(false),
+                ex.getClass().getSimpleName()
         );
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -35,9 +36,10 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     public final ResponseEntity<ExceptionDetails> userNotFound(UserNotFoundException ex, WebRequest request) {
 
         ExceptionDetails exceptionDetails = new ExceptionDetails(
-                LocalDateTime.now(),
+                Instant.now(),
                 ex.getMessage(),
-                request.getDescription(false)
+                request.getDescription(false),
+                ex.getClass().getSimpleName()
         );
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
@@ -50,9 +52,10 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                                                                   WebRequest request) {
 
         ExceptionDetails exceptionDetails = new ExceptionDetails(
-                LocalDateTime.now(),
+                Instant.now(),
                 Objects.requireNonNull(ex.getFieldError()).getDefaultMessage(),
-                request.getDescription(false)
+                request.getDescription(false),
+                ex.getClass().getSimpleName()
         );
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
