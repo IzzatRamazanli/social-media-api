@@ -29,8 +29,8 @@ public class FilterController {
                 .addFilter(filterName, filter);
     }
 
-    private SimpleBeanPropertyFilter getSimpleBeanPropertyFilter(String... values) {
+    private SimpleBeanPropertyFilter getSimpleBeanPropertyFilter(String... fields) {
         return SimpleBeanPropertyFilter
-                .filterOutAllExcept(values);
+                .filterOutAllExcept(fields);
     }
 }
