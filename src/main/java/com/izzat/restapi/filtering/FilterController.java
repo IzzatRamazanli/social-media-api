@@ -16,13 +16,21 @@ public class FilterController {
     public MappingJacksonValue filtering() {
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(someBean);
 
-        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
-                .filterOutAllExcept("field1", "field3");
+        SimpleBeanPropertyFilter filter = getSimpleBeanPropertyFilter("field1", "field3");
 
-        FilterProvider filters = new SimpleFilterProvider()
-                .addFilter("SomeBeanFilter", filter);
+        FilterProvider filters = getFilterProvider("SomeBeanFilter", filter);
 
         mappingJacksonValue.setFilters(filters);
         return mappingJacksonValue;
+    }
+
+    private FilterProvider getFilterProvider(String filterName, SimpleBeanPropertyFilter filter) {
+        return new SimpleFilterProvider()
+                .addFilter(filterName, filter);
+    }
+
+    private SimpleBeanPropertyFilter getSimpleBeanPropertyFilter(String... values) {
+        return SimpleBeanPropertyFilter
+                .filterOutAllExcept(values);
     }
 }
