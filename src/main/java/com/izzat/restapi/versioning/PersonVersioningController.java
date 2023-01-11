@@ -47,4 +47,10 @@ public class PersonVersioningController {
     public Person getPersonVersionHeader2() {
         return new PersonV2(new Name("Izzat", "Ramazanli"));
     }
+
+    //Github
+    @GetMapping(path = "/person/accept", produces = "application/vnd.company.app-v1+json")
+    public Person getPersonVersionAccept() {
+        return new PersonV1("Izzat Ramazanli");
+    }
 }
