@@ -1,6 +1,5 @@
 package com.izzat.restapi.controller;
 
-import com.izzat.restapi.dao.UserDaoService;
 import com.izzat.restapi.enums.UserExceptionEnum;
 import com.izzat.restapi.exception.UserNotFoundException;
 import com.izzat.restapi.model.User;
@@ -30,15 +29,14 @@ public class UserControllerV2 {
     @GetMapping("{id}")
     public EntityModel<User> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
+        if (user == null) throw new UserNotFoundException(UserExceptionEnum.USER_NOT_FOUND);
         EntityModel<User> userEntityModel = EntityModel.of(user);
 
         WebMvcLinkBuilder allUsersLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder
                 .methodOn(this.getClass())
                 .getAllUsers());
         userEntityModel.add(allUsersLink.withRel("all-users"));
-
-        if (userEntityModel.getContent() != null) return userEntityModel;
-        else throw new UserNotFoundException(UserExceptionEnum.USER_NOT_FOUND);
+        return userEntityModel;
     }
 
     @PostMapping

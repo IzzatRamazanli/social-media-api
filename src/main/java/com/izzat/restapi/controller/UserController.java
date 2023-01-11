@@ -29,15 +29,14 @@ public class UserController {
     @GetMapping("{id}")
     public EntityModel<User> getUserById(@PathVariable Long id) {
         User user = userDaoService.findById(id);
+        if (user == null) throw new UserNotFoundException(UserExceptionEnum.USER_NOT_FOUND);
         EntityModel<User> userEntityModel = EntityModel.of(user);
 
         WebMvcLinkBuilder allUsersLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder
                 .methodOn(this.getClass())
                 .getAllUsers());
         userEntityModel.add(allUsersLink.withRel("all-users"));
-
-        if (userEntityModel.getContent() != null) return userEntityModel;
-        else throw new UserNotFoundException(UserExceptionEnum.USER_NOT_FOUND);
+        return userEntityModel;
     }
 
     @PostMapping
