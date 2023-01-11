@@ -6,6 +6,8 @@ import com.izzat.restapi.exception.UserNotFoundException;
 import com.izzat.restapi.model.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,7 +16,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserDaoService userDaoService;
@@ -25,9 +27,16 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public User getUserById(@PathVariable Long id) {
+    public EntityModel<User> getUserById(@PathVariable Long id) {
         User user = userDaoService.findById(id);
-        if (user != null) return user;
+        EntityModel<User> userEntityModel = EntityModel.of(user);
+
+        WebMvcLinkBuilder allUsersLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder
+                .methodOn(this.getClass())
+                .getAllUsers());
+        userEntityModel.add(allUsersLink.withRel("all-users"));
+
+        if (userEntityModel.getContent() != null) return userEntityModel;
         else throw new UserNotFoundException(UserExceptionEnum.USER_NOT_FOUND);
     }
 

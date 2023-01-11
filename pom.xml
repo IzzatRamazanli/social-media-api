@@ -27,7 +27,13 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-<!--swagger implementation-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+
+
+        <!--swagger implementation-->
 <!--        <dependency>-->
 <!--            <groupId>org.springdoc</groupId>-->
 <!--            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->

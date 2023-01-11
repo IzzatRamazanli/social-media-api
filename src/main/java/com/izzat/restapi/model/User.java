@@ -1,5 +1,6 @@
 package com.izzat.restapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Past;
@@ -15,12 +16,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class User {
 
+    @JsonProperty("user-id")
     private Long userId;
 
     @Size(min = 3, message = "User name must consist of at least 3 characters")
+    @JsonProperty("user-name")
     private String name;
 
     @Past(message = "Birthdate should be in past")
+    @JsonProperty("birth-date")
     private LocalDate birthDate;
 
 }
