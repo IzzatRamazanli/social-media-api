@@ -30,11 +30,9 @@ public class UserDaoService {
     }
 
     public User saveUser(User user) {
-        if (user != null) {
             user.setUserId(id.getAndIncrement());
             users.add(user);
             return user;
-        } else return null;
     }
 
     public void deleteUser(Long id) {
