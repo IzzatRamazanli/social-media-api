@@ -4,6 +4,7 @@ import com.izzat.restapi.enums.UserExceptionEnum;
 import com.izzat.restapi.exception.UserNotFoundException;
 import com.izzat.restapi.model.Post;
 import com.izzat.restapi.model.User;
+import com.izzat.restapi.repository.PostRepository;
 import com.izzat.restapi.service.PostService;
 import com.izzat.restapi.service.UserService;
 import jakarta.validation.Valid;
@@ -23,6 +24,7 @@ import java.util.List;
 public class UserControllerV2 {
     private final UserService userService;
     private final PostService postService;
+    private final PostRepository postRepository;
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -61,6 +63,11 @@ public class UserControllerV2 {
     public List<Post> getAllPostsByUser(@PathVariable Long id) {
         User userById = getUser(id);
         return userById.getPosts();
+    }
+
+    @GetMapping("/{userId}/posts/{postId}")
+    public Post getPostById(@PathVariable("userId") Long userId, @PathVariable("postId") Long postId) {
+        return postService.getPostById(userId, postId);
     }
 
     @PostMapping("/{id}/posts")

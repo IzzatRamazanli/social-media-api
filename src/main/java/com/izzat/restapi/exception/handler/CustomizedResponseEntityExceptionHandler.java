@@ -1,5 +1,6 @@
 package com.izzat.restapi.exception.handler;
 
+import com.izzat.restapi.exception.PostNotFoundException;
 import com.izzat.restapi.exception.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -59,6 +60,19 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         );
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    public final ResponseEntity<ExceptionDetails> postNotFound(PostNotFoundException ex, WebRequest request) {
+
+        ExceptionDetails exceptionDetails = new ExceptionDetails(
+                Instant.now(),
+                ex.getMessage(),
+                request.getDescription(false),
+                ex.getClass().getSimpleName()
+        );
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
 
 
