@@ -15,9 +15,9 @@ public class UserDaoService {
     private final static AtomicLong id = new AtomicLong(1);
 
     static {
-        users.add(new User(id.getAndIncrement(), "Izzat", LocalDate.now().minusYears(20)));
-        users.add(new User(id.getAndIncrement(), "Ranga", LocalDate.now().minusYears(30)));
-        users.add(new User(id.getAndIncrement(), "Jim", LocalDate.now().minusYears(15)));
+        users.add(new User(id.getAndIncrement(), "Izzat", LocalDate.now().minusYears(20), null));
+        users.add(new User(id.getAndIncrement(), "Ranga", LocalDate.now().minusYears(30), null));
+        users.add(new User(id.getAndIncrement(), "Jim", LocalDate.now().minusYears(15), null));
     }
 
     public List<User> findAll() {
@@ -30,9 +30,9 @@ public class UserDaoService {
     }
 
     public User saveUser(User user) {
-            user.setUserId(id.getAndIncrement());
-            users.add(user);
-            return user;
+        user.setUserId(id.getAndIncrement());
+        users.add(user);
+        return user;
     }
 
     public void deleteUser(Long id) {
