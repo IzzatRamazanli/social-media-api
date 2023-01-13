@@ -10,7 +10,6 @@ import com.izzat.restapi.repository.PostRepository;
 import com.izzat.restapi.service.PostService;
 import com.izzat.restapi.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

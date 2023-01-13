@@ -24,7 +24,6 @@ import java.util.List;
 public class UserControllerV2 {
     private final UserService userService;
     private final PostService postService;
-    private final PostRepository postRepository;
 
     @GetMapping
     public List<User> getAllUsers() {
