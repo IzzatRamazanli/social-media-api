@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/java/com/izzat/restapi/versioning/
+/src/main/java/com/izzat/restapi/filtering/
+/src/main/java/com/izzat/restapi/dao/
